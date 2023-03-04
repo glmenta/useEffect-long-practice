@@ -1,12 +1,12 @@
 import {useEffect, useState} from 'react';
 
-function Message({ size }) {
+function Message({ size, featherCount }) {
 
   const [sizeClass, setSizeClass] = useState('');
+  const [msg, setMsg] = useState('')
 
   useEffect(() => {
     console.log('Message', size);
-
     //calculating image size
     let cname = '';
     switch(size) {
@@ -27,9 +27,19 @@ function Message({ size }) {
     setSizeClass(cname);
   }, [size])
 
+  useEffect(() => {
+    if (featherCount <= 0)
+    setMsg('Oh my! Your bird is naked!');
+  else if (featherCount >= 10) {
+    setMsg('Full turkey!');
+  } else {
+    setMsg('Coming along...');
+  }
+}, [featherCount])
+
   return (
     <div className={`message ${sizeClass}`}>
-      (Oh my! Your bird is naked!)
+      {msg}
     </div>
   );
 };
